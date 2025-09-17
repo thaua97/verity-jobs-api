@@ -1,7 +1,8 @@
 // JSON Server module
 const jsonServer = require("json-server");
+const path = require("path");
 const server = jsonServer.create();
-const router = jsonServer.router("db.json");
+const router = jsonServer.router(path.join(__dirname, "db.json"));
 
 // Make sure to use the default middleware
 const middlewares = jsonServer.defaults();
@@ -15,10 +16,6 @@ server.use(
  })
 );
 server.use(router);
-// Listen to port
-server.listen(3000, () => {
- console.log("JSON Server is running");
-});
 
-// Export the Server API
+// Export the Server API as the handler for Vercel serverless function
 module.exports = server;
